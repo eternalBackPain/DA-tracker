@@ -11,5 +11,3 @@ app.listen(port, () => {
 //Have express serve static files such as images, CSS files, and JavaScript files
 app.use(express.static("public"));
 
-
-//GCP API Key: AIzaSyBfRbEPrKSs6cniENiokCq4ZUqp39eRLEw

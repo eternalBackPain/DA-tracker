@@ -25,48 +25,33 @@ if (navigator.geolocation) {
 
 // LOAD THE MAP
 let map;
+const GOOGLE_MAP_ID = "9ee2e6e794acfb79";
 function initMap() {
   // Create new map
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 12,
     center: startingPos,
+    mapId: GOOGLE_MAP_ID,
   });
 
-  getPlanningData();
-  addMarkers(map);
+  fetchPlanningData(startingPos);
 }
 
 // CALL THE PLANNINGALERTS API
-let fullPlanningData = [];
-function getPlanningData() {
-  const fetchPromises = [];
-  //Call fetch the API 10 times to get 1000 results
-  for (let i = 1; i < 4; i++) {
-    // Call applications by specifying a lat, lng, and radius
-    const url = `https://api.planningalerts.org.au/applications.json?key=riP43cYUNoWbcCfJ1EkS&lat=${startingPos.lat}&lng=${startingPos.lng}&radius=4000&page=${i}`;
+function fetchPlanningData(startingPos) {
+  const url = `/planning-data?lat=${startingPos.lat}&lng=${startingPos.lng}`;
 
-    const fetchPromise = fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        fullPlanningData = fullPlanningData.concat(data);
-      })
-      .catch((error) => console.error(error));
-
-    fetchPromises.push(fetchPromise);
-  }
-
-  Promise.all(fetchPromises)
-    .then(() => {
-      // All fetch calls have completed, fullPlanningData is populated
-      addMarkers(map);
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      addMarkers(map, data);
     })
     .catch((error) => console.error(error));
 }
 
 //ADD MARKERS
-function addMarkers(map) {
-  console.log(fullPlanningData);
-  fullPlanningData.forEach((element) => {
+function addMarkers(map, planningData) {
+  planningData.forEach((element) => {
     const lat = element.application.lat;
     const lng = element.application.lng;
     const address = element.application.address;
@@ -77,6 +62,24 @@ function addMarkers(map) {
       title: `${address}: ${description}`,
     });
   });
+}
+
+//ADD OVERLAY
+function addOverlay() {
+  // Create a Deck.gl overlay
+  const overlay = new DeckOverlay({
+    layers: [
+      new GeoJsonLayer({
+        id: "geojson",
+        data: fullPlanningData,
+        getFillColor: [255, 0, 0],
+        getRadius: 100,
+      }),
+    ],
+  });
+
+  // Add the overlay to the map
+  overlay.setMap(map);
 }
 
 // CREATE SCRIPT TAG AND CALL THE GOOGLE MAPS URL

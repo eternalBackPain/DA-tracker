@@ -23,7 +23,7 @@ app.get("/planning-data", (req, res) => {
   const lng = req.query.lng;
   const fetchPromises = [];
 
-  for (let i = 1; i < 4; i++) {
+  for (let i = 1; i < 11; i++) {
     const url = `https://api.planningalerts.org.au/applications.geojson?key=${PLANNING_ALERTS_API_KEY}&lat=${lat}&lng=${lng}&radius=4000&page=${i}`;
 
     const fetchPromise = fetch(url)

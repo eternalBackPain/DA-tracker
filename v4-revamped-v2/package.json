@@ -12,6 +12,7 @@
     "vite": "^4.0.4"
   },
   "dependencies": {
+    "@deck.gl/aggregation-layers": "^8.9.19",
     "@deck.gl/google-maps": "^8.9.19",
     "@deck.gl/layers": "^8.9.19",
     "express": "^4.18.2",

@@ -15,6 +15,7 @@ Essentially, the app plots development applications on a map, clusters the resul
 - Add a form field to enter an address/suburb instead of relying on your own Geolocation
 - Add a form field to control any other variables that might be interesting to play with (e.g. radius, date of submission)
 - Filter development applications by submission date. This may include altering my loop on the fetch function to continue looping until fetch number n+1 has no development applications before a certain date (e.g. 1/3/6 months from today's date)
+- add a switch to go from deck.gl overlay to markers
 - Make other calls to PlanningAlerts API that might be of interest
 - Add styling to everything
 

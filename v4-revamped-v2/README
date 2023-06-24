@@ -1,0 +1,5 @@
+Used Vite so that I can better bundle the files and actually load ECMA Script (i.e. use import statements and dependencies properly). This was all done so that I can properly import deck.gl. 
+
+The previous v4 was an attempt at using webpack to do this, but its a shitty developer experience (no instant reload; need to build and serve and requires a separate node package for a dev server).
+
+I brought in all the code from v3-simplified into this v4.

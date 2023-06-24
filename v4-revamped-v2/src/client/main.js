@@ -1,50 +1,82 @@
 import { GoogleMapsOverlay as DeckOverlay } from "@deck.gl/google-maps";
 import { GeoJsonLayer, ScatterplotLayer } from "@deck.gl/layers";
 import { HexagonLayer } from "@deck.gl/aggregation-layers";
+import {
+  createTooltip,
+  removeTooltip,
+  showTooltip,
+  handleMouseHover,
+} from "./tooltip";
 
-// GET CLIENT CURRENT POSITION
-let startingPos;
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(
-    function (position) {
-      // Update the lat/lng values of startingPos
-      startingPos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-      };
-      console.log("current position:");
-      console.log(startingPos);
+//HANDLE POSITIONING OF MAP 
+let position = {
+  lat: -33.8688,
+  lng: 151.2093,
+};
 
-      initMap(); // Call initMap after getting the starting position
-    },
-    function (error) {
-      console.log(error.message); // Handle any errors that occur
-    }
-  );
-} else {
-  console.log("Geolocation is not supported by this browser.");
+function getCurrentPosition() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        // Update the lat/lng values of startingPos
+        position = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        updateMapPosition(position);
+      },
+      function (error) {
+        console.log(error.message); // Handle any errors that occur
+      }
+    );
+  } else {
+    console.log("Geolocation is not supported by this browser.");
+  }
+}
+
+function handlePositionChange() {
+  //handle typed address
+  const input = document.getElementById("address-input");
+  const autocomplete = new google.maps.places.Autocomplete(input);
+  autocomplete.addListener("place_changed", function () {
+    const place = autocomplete.getPlace();
+    position = {
+      lat: place.geometry.location.lat(),
+      lng: place.geometry.location.lng(),
+    };
+    updateMapPosition(position);
+  });
+  //handle geolocate button
+  const geolocateButton = document.getElementById("geolocate");
+  geolocateButton.addEventListener('click', getCurrentPosition);
+}
+
+function updateMapPosition(newPosition) {
+  map.setCenter(newPosition);
 }
 
 // LOAD THE MAP
 let map;
+let radius = 4000;
 const GOOGLE_MAP_ID = "9ee2e6e794acfb79";
 function initMap() {
   // Create new map
   console.log("initializing map");
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 13,
-    center: startingPos,
+    center: position,
     tilt: 45, // Set the tilt angle (0 for flat, 45 for 45-degree tilt, etc.)
     mapId: GOOGLE_MAP_ID,
   });
-  console.log("map initialized");
-  fetchPlanningData(startingPos);
+  console.log(`Map initialized`);
+  console.log(position)
+  fetchPlanningData(position);
 }
 
 // CALL THE PLANNINGALERTS API
 function fetchPlanningData(startingPos) {
   console.log("fetching planning data");
-  const url = `/planning-data?lat=${startingPos.lat}&lng=${startingPos.lng}`;
+  const url = `/planning-data?lat=${startingPos.lat}&lng=${startingPos.lng}&radius=${radius}`;
 
   fetch(url)
     .then((response) => response.json())
@@ -129,11 +161,13 @@ function addOverlay(sourceData) {
 
 // CREATE SCRIPT TAG AND CALL THE GOOGLE MAPS URL
 const GOOGLE_MAP_API_KEY = "AIzaSyBfRbEPrKSs6cniENiokCq4ZUqp39eRLEw";
+const PLACES_API_KEY = "AIzaSyAIRkPnJrXCvBKaaTOVZNNI3fgNfJXqOME";
 const script = document.createElement("script");
 // script.async = true;
 // script.defer = true;
-script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAP_API_KEY}&map_ids=${GOOGLE_MAP_ID}`;
+script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAP_API_KEY}&map_ids=${GOOGLE_MAP_ID}&libraries=places&key=${PLACES_API_KEY}`;
 document.head.appendChild(script);
 script.addEventListener("load", function () {
   initMap(); // Call initMap once the API has finished loading
+  handlePositionChange();
 });

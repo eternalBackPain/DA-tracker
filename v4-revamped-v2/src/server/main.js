@@ -21,10 +21,11 @@ const PLANNING_ALERTS_API_KEY = "riP43cYUNoWbcCfJ1EkS";
 app.get("/planning-data", (req, res) => {
   const lat = req.query.lat;
   const lng = req.query.lng;
+  const radius = req.query.radius;
   const fetchPromises = [];
 
-  for (let i = 1; i < 11; i++) {
-    const url = `https://api.planningalerts.org.au/applications.geojson?key=${PLANNING_ALERTS_API_KEY}&lat=${lat}&lng=${lng}&radius=4000&page=${i}`;
+  for (let i = 1; i < 6; i++) {
+    const url = `https://api.planningalerts.org.au/applications.geojson?key=${PLANNING_ALERTS_API_KEY}&lat=${lat}&lng=${lng}&radius=${radius}&page=${i}`;
 
     const fetchPromise = fetch(url)
       .then((response) => response.json())
@@ -35,7 +36,7 @@ app.get("/planning-data", (req, res) => {
   }
 
   Promise.all(fetchPromises)
-    .then(console.log(fetchPromises))
+    // .then(console.log(fetchPromises))
     .then((results) => {
       const planningData = results.flat();
       const combinedPlanningData = {
@@ -46,7 +47,7 @@ app.get("/planning-data", (req, res) => {
       for (const featureCollection of planningData) {
         combinedPlanningData.features.push(...featureCollection.features);
       }
-      console.log(combinedPlanningData.features);
+      // console.log(combinedPlanningData.features);
       res.json(combinedPlanningData.features);
     })
     .catch((error) => console.error(error));

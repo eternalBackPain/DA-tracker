@@ -21,8 +21,19 @@
         perferendis doloremque quae atque recusandae unde deleniti, ab magnam
         pariatur.
       </p>
+      <div id="controls">
+        <input
+          id="address-input"
+          type="text"
+          placeholder="Enter your address"
+        />
+        <button id="geolocate">...or geolocate me automatically</button>
+        <input type="range" name="radius" id="radius-input" min="400" max="10000" value="4000" step="200">
+        <label for="radius">Radius of search (min is 400m; max is 10km; default is 4km)</label>
+      </div>
     </div>
     <div id="map"></div>
+    <div id="tooltips"></div>
     <script type="module" src="/src/client/main.js"></script>
   </body>
 </html>

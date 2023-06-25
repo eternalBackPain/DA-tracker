@@ -5,16 +5,19 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
-    <style>
-      #map {
-        height: 90vh; /* The height is 400 pixels */
-        width: 100vh; /* The width is the width of the web page */
-      }
-    </style>
+    <script type="module" src="./src/client/style.css"></script>
   </head>
   <body>
     <div id="app">
-      <h1>Spatial DA Tracker</h1>
+      <header>
+        <div class="title">
+          <h1>Spatial Development Application Tracker</h1>
+        </div>
+        <div class="about-link">
+          <a href="about.html">About</a>
+        </div>
+        <div style="clear: both"></div>
+      </header>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas eius quae
         molestiae. Aspernatur eius, ullam non id ducimus officiis alias
@@ -22,18 +25,23 @@
         pariatur.
       </p>
       <div id="controls">
+        <label for="radius"
+          >Radius of search (min is 400m; max is 10km; default is 4km)</label
+        >
         <input
-          id="address-input"
-          type="text"
-          placeholder="Enter your address"
+          type="range"
+          name="radius"
+          id="radius-input"
+          min="400"
+          max="10000"
+          value="4000"
+          step="200"
         />
+        <input id="address-input" type="text" placeholder="Enter an address" />
         <button id="geolocate">...or geolocate me automatically</button>
-        <input type="range" name="radius" id="radius-input" min="400" max="10000" value="4000" step="200">
-        <label for="radius">Radius of search (min is 400m; max is 10km; default is 4km)</label>
       </div>
+      <div id="map"></div>
     </div>
-    <div id="map"></div>
-    <div id="tooltips"></div>
     <script type="module" src="/src/client/main.js"></script>
   </body>
 </html>

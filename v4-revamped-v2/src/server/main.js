@@ -4,13 +4,14 @@ const ViteExpress = require("vite-express");
 
 const app = express();
 
-app.get("/hello", (req, res) => {
-  res.send("Hello Vite!");
-});
-
 ViteExpress.listen(app, 3000, () =>
   console.log("Server is listening on port 3000...")
 );
+
+//Routing
+app.get("/about", (req, res) => {
+  res.sendFile(__dirname + "/public/about.html");
+});
 
 //API KEYS
 const PLANNING_ALERTS_API_KEY = "riP43cYUNoWbcCfJ1EkS";

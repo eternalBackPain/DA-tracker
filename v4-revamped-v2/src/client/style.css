@@ -1,0 +1,65 @@
+:root {
+    background-color:#065143;
+}
+
+/* Style the main content */
+#app {
+    max-width: 800px;
+    margin: 0 auto;
+    margin-top: 40px;
+    padding: 5%;
+    background-color: #DAFFEF;
+  }
+
+/* Style the header */
+header {
+  /* padding: 20px; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.about-link a {
+  color: #000000;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+
+
+/* Style the controls */
+#controls {
+  margin-bottom: 20px;
+}
+
+#address-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+#geolocate {
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+label[for="radius"] {
+  display: block;
+  margin-top: 30px;
+}
+
+#radius-input {
+  width: 100%;
+}
+
+#map {
+    height: 90vh; /* The height is 400 pixels */
+    width: 100%; /* The width is the width of the web page */
+  }

@@ -1,17 +1,30 @@
 //BOILERPLATE
 const express = require("express");
 const ViteExpress = require("vite-express");
-
 const app = express();
+// const fs = require('fs');
+// const md = require('markdown-it')();
 
 ViteExpress.listen(app, 3000, () =>
   console.log("Server is listening on port 3000...")
 );
 
 //Routing
-app.get("/about", (req, res) => {
-  res.sendFile(__dirname + "/public/about.html");
-});
+// app.get("/about", (req, res) => {
+//   res.sendFile(__dirname + "/public/about.md");
+// });
+
+// app.get('/about', (req, res) => {
+//   fs.readFile('/public/about.md', 'utf8', (err, data) => {
+//     if (err) {
+//       console.error(err);
+//       res.status(500).send('Error reading Markdown file');
+//     } else {
+//       const html = md.render(data);
+//       res.send(html);
+//     }
+//   });
+// });
 
 //API KEYS
 const PLANNING_ALERTS_API_KEY = "riP43cYUNoWbcCfJ1EkS";

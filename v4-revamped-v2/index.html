@@ -4,27 +4,37 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>DA Tracker</title>
     <script type="module" src="./src/client/style.css"></script>
   </head>
   <body>
     <div id="app">
-      <header>
+      <header id="header">
         <div class="title">
-          <h1>Spatial Development Application Tracker</h1>
+          <h1>SPATIAL DEVELOPMENT APPLICATION TRACKER</h1>
         </div>
-        <div class="about-link">
-          <a href="about.html">About</a>
-        </div>
-        <div style="clear: both"></div>
       </header>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas eius quae
-        molestiae. Aspernatur eius, ullam non id ducimus officiis alias
-        perferendis doloremque quae atque recusandae unde deleniti, ab magnam
-        pariatur.
-      </p>
+
+      <div id="short-description">
+        <h3>
+          The premise: Development Applications, aggregated by density, mapped
+          across Australia.
+        </h3>
+        <p>
+          A gauge of gentrification, or notice of nuisance – this tracker 
+          plots DAs in a 3D space to inform you of any recent changes to land use
+          around a given location.
+        </p>
+        <p>
+          Local councils fail to provide this data intuitively. Their websites
+          do not capture other locailities, often do not provide address
+          specific data, and do not visualise the density of applications in an
+          area.
+        </p>
+      </div>
+
       <div id="controls">
+        <h2>Search</h2>
         <label for="radius"
           >Radius of search (min is 400m; max is 10km; default is 4km)</label
         >
@@ -39,8 +49,94 @@
         />
         <input id="address-input" type="text" placeholder="Enter an address" />
         <button id="geolocate">...or geolocate me automatically</button>
+        <p>
+          Click and drag to move around the map. Hold shift, click and drag to
+          change perspective.
+        </p>
       </div>
       <div id="map"></div>
+      <div id="about">
+        <h2>How does the tracker work?</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium
+          deleniti, numquam sed ipsam voluptatem non eligendi eaque molestiae,
+          doloremque possimus nemo et consequatur nihil alias rerum libero enim
+          autem. Unde deserunt repellat voluptatibus commodi necessitatibus
+          quisquam consequuntur aliquid dolorem. Fugit aperiam quasi eius facere
+          doloremque, tempora nobis nam laboriosam velit rem nisi assumenda
+          fuga. Debitis libero quae ea odit pariatur! Molestias fuga laboriosam
+          exercitationem eos ab. Omnis quasi corrupti nam tempore deserunt quam
+          repudiandae consectetur, quidem ipsum ex cum provident enim fugiat
+          quas, reprehenderit iure fugit dolorum nisi aut praesentium officia
+          quis minima architecto rem! Laborum, perferendis facere delectus dicta
+          autem quidem dignissimos, qui assumenda, aliquid voluptatum libero
+          quam architecto rem. Blanditiis laboriosam nihil est, quos at placeat
+          illum magnam temporibus unde recusandae hic laudantium id nisi,
+          deleniti iusto enim expedita rerum harum aliquam amet, adipisci
+          dolores sequi? Iusto provident expedita ab vitae facere, rerum optio
+          explicabo harum. Rem minus natus explicabo pariatur? Deserunt quia
+          alias officia doloremque culpa, temporibus autem minus veniam ipsam
+          repudiandae animi est iusto excepturi accusantium quae cupiditate ex
+          assumenda blanditiis illum laboriosam perspiciatis placeat ipsum!
+          Recusandae sapiente doloribus enim incidunt tempore omnis commodi
+          porro quos, non excepturi. Quidem veritatis cum sequi nobis, minus
+          repudiandae voluptatum.
+        </p>
+        <br />
+        <h2>What's a Development Application (DA)?</h2>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque
+          at et commodi ipsum ab aut nemo officiis recusandae blanditiis quos
+          culpa ipsa ullam sapiente nulla numquam laboriosam ipsam corporis
+          assumenda itaque necessitatibus, illum qui ad beatae! Veniam obcaecati
+          neque enim officiis unde. Fugiat aspernatur expedita, ad ipsum
+          quibusdam minima cumque asperiores itaque dolores reprehenderit optio
+          tempora quisquam, ratione sit architecto, exercitationem iure eius.
+          Sequi repellat id, impedit beatae dicta, vel incidunt quos
+          reprehenderit aliquam atque aspernatur sit asperiores ut sed
+          blanditiis odio! Deserunt placeat hic, vero quam pariatur nesciunt
+          voluptas natus voluptatibus quis reiciendis neque ipsa excepturi.
+          Rerum repudiandae deserunt eaque reprehenderit iure libero, molestiae
+          veniam dolorum fugit ratione quo. Porro, labore consequatur asperiores
+          voluptates vitae ipsum quam. Optio, quis corporis voluptatibus
+          praesentium ullam, minima temporibus excepturi exercitationem nesciunt
+          tempora, laudantium voluptate ut quas iusto laborum a molestias natus
+          aut? Fuga laudantium, officia vero dignissimos saepe assumenda minima
+          ducimus similique possimus quo ut consequuntur obcaecati, mollitia eos
+          ea blanditiis deleniti magnam nisi culpa quas error incidunt laborum
+          quidem! Et suscipit tenetur, explicabo consectetur deleniti accusamus
+          reiciendis odit excepturi tempora cupiditate, similique optio quidem
+          amet doloribus aperiam eveniet, maxime pariatur at. Officia ullam
+          debitis eius laborum ipsa quis, consectetur dolores corporis!
+        </p>
+        <br />
+        <h2>What is the process of Development Applications in Australia?</h2>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio
+          officia delectus harum minus vero animi, odio debitis dolor. Cumque
+          cupiditate sit quis nostrum ipsa consequatur aliquid, deserunt harum
+          ducimus provident eius nemo excepturi corporis nisi? Veritatis dolorum
+          nihil voluptates ex quibusdam praesentium! Dolore sit esse quam
+          debitis ducimus tempore obcaecati in eum officia possimus. Qui
+          explicabo laborum earum numquam soluta rem repellendus molestias esse
+          id iusto facilis, tempora dicta eius ab ipsa sint rerum perferendis
+          repellat impedit! Nihil amet officia iusto praesentium culpa quis
+          aperiam eius ducimus obcaecati tempore neque, laudantium asperiores?
+          Dolore sunt corporis culpa assumenda quaerat dolores libero provident.
+          Qui commodi laudantium ipsam provident at, officia quia est fugit
+          fuga? Aliquam magni, labore, eius inventore repudiandae laboriosam
+          aliquid illo molestias sapiente eum quibusdam? Molestias ad ea
+          voluptates minus dolorem ab, placeat cum in quis assumenda sequi eum
+          officia tenetur cupiditate necessitatibus ipsa quibusdam labore animi
+          magnam tempore, alias id. Laudantium, maxime hic. Soluta quam earum
+          modi perferendis cupiditate rerum ipsam eum facere, dignissimos quidem
+          aspernatur velit illo expedita! Aliquid dicta iusto est mollitia
+          assumenda sit. Ut a odit reiciendis eos et rem ullam explicabo!
+          Ratione, labore molestias! Impedit, ratione sint quibusdam repudiandae
+          harum facilis? Distinctio odio inventore quasi.
+        </p>
+        <br />
+      </div>
     </div>
     <script type="module" src="/src/client/main.js"></script>
   </body>

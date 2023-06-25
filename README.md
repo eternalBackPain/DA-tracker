@@ -8,13 +8,12 @@ PlanningAlerts is attributed to the OpenAustralia Foundation. The PlanningAlerts
 Essentially, the app plots development applications on a map, clusters the results by density, and displays the results as 3D pillars.
 
 ## Showcase
-![image](https://github.com/eternalBackPain/DA-tracker/assets/97266283/de285583-b2dd-4a75-9ca4-dea0e664692f)
+![DA Tracker](https://github.com/eternalBackPain/DA-tracker/assets/97266283/49b5c0e9-2e82-470a-b774-5086edeb3ad4)
 
 ## TODO
-- Add an about page and include general legal advice on how development applications work at law and what the rights of an objector are
-- Add a form field to enter an address/suburb instead of relying on your own Geolocation
+- include general legal advice on how development applications work at law and what the rights of an objector are
 - Add a form field to control any other variables that might be interesting to play with (e.g. radius, date of submission)
-- Filter development applications by submission date. This may include altering my loop on the fetch function to continue looping until fetch number n+1 has no development applications before a certain date (e.g. 1/3/6 months from today's date)
+- Filter development applications by submission date. This may include altering my loop on the fetch function to continue looping until fetch number n+1 has no development applications before a certain date (e.g. 1/3/6 months from today's date). At the minimum, show what the latest submission date was of the data called.
 - add a switch to go from deck.gl overlay to markers
 - Make other calls to PlanningAlerts API that might be of interest
 - Add styling to everything

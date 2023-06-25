@@ -7,11 +7,15 @@ import {
   showTooltip,
   handleMouseHover,
 } from "./tooltip";
+import GoogleMapSmoothZoom from "./Zoomer";
 
-//HANDLE POSITIONING OF MAP 
+let map;
+let zoomer;
+
+//Default position of map
 let position = {
-  lat: -33.8688,
-  lng: 151.2093,
+  lat: -24.57571089140259,
+  lng: 133.26174047286068,
 };
 
 function getCurrentPosition() {
@@ -24,6 +28,8 @@ function getCurrentPosition() {
           lng: position.coords.longitude,
         };
         updateMapPosition(position);
+        updateMapZoom(13);
+        fetchPlanningData(position);
       },
       function (error) {
         console.log(error.message); // Handle any errors that occur
@@ -32,6 +38,14 @@ function getCurrentPosition() {
   } else {
     console.log("Geolocation is not supported by this browser.");
   }
+}
+
+function updateMapPosition(newPosition) {
+  map.panTo(newPosition);
+}
+
+function updateMapZoom(newZoom) {
+  zoomer.in(newZoom);
 }
 
 function handlePositionChange() {
@@ -45,32 +59,35 @@ function handlePositionChange() {
       lng: place.geometry.location.lng(),
     };
     updateMapPosition(position);
+    updateMapZoom(13);
+    fetchPlanningData(position);
   });
   //handle geolocate button
   const geolocateButton = document.getElementById("geolocate");
-  geolocateButton.addEventListener('click', getCurrentPosition);
-}
-
-function updateMapPosition(newPosition) {
-  map.setCenter(newPosition);
+  geolocateButton.addEventListener("click", getCurrentPosition);
 }
 
 // LOAD THE MAP
-let map;
+
 let radius = 4000;
+const radiusInput = document.getElementById("radius-input");
+radiusInput.addEventListener("input", function () {
+  const radiusValue = radiusInput.value;
+  radius = radiusValue;
+});
+
 const GOOGLE_MAP_ID = "9ee2e6e794acfb79";
 function initMap() {
   // Create new map
   console.log("initializing map");
   map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 13,
+    zoom: 4,
     center: position,
     tilt: 45, // Set the tilt angle (0 for flat, 45 for 45-degree tilt, etc.)
     mapId: GOOGLE_MAP_ID,
   });
   console.log(`Map initialized`);
-  console.log(position)
-  fetchPlanningData(position);
+  console.log(position);
 }
 
 // CALL THE PLANNINGALERTS API
@@ -82,9 +99,9 @@ function fetchPlanningData(startingPos) {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-      //ADD ELEMENTS ONTO THE MAP
-      // addMarkers(map, data);
+      //ADD ELEMENTS ONTO THE MAP (TURN THIS INTO A SWITCH)
       addOverlay(data);
+      // addMarkers(map, data);
     })
     .catch((error) => console.error(error));
 }
@@ -154,6 +171,10 @@ function addOverlay(sourceData) {
         // wrapLongitude: false,
       }),
     ],
+    getTooltip: ({ object }) =>
+      object && {
+        html: `<h2>Number of DAs: ${object.points.length}</h2>`,
+      },
   });
 
   overlay.setMap(map);
@@ -169,5 +190,6 @@ script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAP_API_KEY}&
 document.head.appendChild(script);
 script.addEventListener("load", function () {
   initMap(); // Call initMap once the API has finished loading
+  zoomer = new GoogleMapSmoothZoom(map);
   handlePositionChange();
 });

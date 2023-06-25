@@ -8,7 +8,7 @@ PlanningAlerts is attributed to the OpenAustralia Foundation. The PlanningAlerts
 Essentially, the app plots development applications on a map, clusters the results by density, and displays the results as 3D pillars.
 
 ## Showcase
-![DA Tracker](https://github.com/eternalBackPain/DA-tracker/assets/97266283/49b5c0e9-2e82-470a-b774-5086edeb3ad4)
+![DA Tracker (1)](https://github.com/eternalBackPain/DA-tracker/assets/97266283/55265a37-10b8-4099-a0b0-e505654e7ed0)
 
 ## TODO
 - include general legal advice on how development applications work at law and what the rights of an objector are

@@ -44,6 +44,38 @@ label[for="radius"] {
   width: 100%;
 }
 
+.btn-holder {
+  margin-top: 10px;
+  width: 50px;
+  height: 26px;
+  border-radius: 18px;
+  background-color: #F7D6A3;
+  display: flex;
+  align-items: center;
+  padding-left: 5px;
+  padding-right: 5px;
+  cursor: pointer;
+
+  .btn-circle {
+      background-color: #6B5E8A;
+      transform: translateX(0px);
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      transition: 300ms;
+  }
+
+  .active {
+      background-color: rgb(218, 114, 80);
+      transform: translateX(30px);
+      transition: 300ms;
+  }
+
+  .checkbox {
+      display: none;
+  }
+}
+
 #address-input {
   width: 100%;
   padding: 10px;
@@ -59,6 +91,11 @@ label[for="radius"] {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#geolocate:hover {
+  background-color: #555;
 }
 
 #map {

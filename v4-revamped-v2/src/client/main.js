@@ -1,18 +1,18 @@
 import { GoogleMapsOverlay as DeckOverlay } from "@deck.gl/google-maps";
 import { GeoJsonLayer, ScatterplotLayer } from "@deck.gl/layers";
 import { HexagonLayer } from "@deck.gl/aggregation-layers";
-import {
-  createTooltip,
-  removeTooltip,
-  showTooltip,
-  handleMouseHover,
-} from "./tooltip";
 import GoogleMapSmoothZoom from "./Zoomer";
+import { displayToggle } from "./Toggle";
 
 let map;
+let markers = [];
+let markersVisible = false;
+let overlay;
 let zoomer;
+const btn = document.querySelector(".btn-holder");
 
-//Default position of map
+//HANDLE POSITIONING
+
 let position = {
   lat: -24.57571089140259,
   lng: 133.26174047286068,
@@ -81,7 +81,7 @@ function initMap() {
   // Create new map
   console.log("initializing map");
   map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 4,
+    zoom: 5,
     center: position,
     tilt: 45, // Set the tilt angle (0 for flat, 45 for 45-degree tilt, etc.)
     mapId: GOOGLE_MAP_ID,
@@ -90,7 +90,8 @@ function initMap() {
   console.log(position);
 }
 
-// CALL THE PLANNINGALERTS API
+/// CALL THE PLANNINGALERTS API
+
 function fetchPlanningData(startingPos) {
   console.log("fetching planning data");
   const url = `/planning-data?lat=${startingPos.lat}&lng=${startingPos.lng}&radius=${radius}`;
@@ -99,14 +100,26 @@ function fetchPlanningData(startingPos) {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-      //ADD ELEMENTS ONTO THE MAP (TURN THIS INTO A SWITCH)
       addOverlay(data);
-      // addMarkers(map, data);
+      showOverlay();
+      addMarkers(null, data);
+      btn.addEventListener("click", () => {
+        console.log("button clicked");
+        if (markersVisible) {
+          hideMarkers();
+          showOverlay();
+          markersVisible = false;
+        } else {
+          hideOverlay();
+          showMarkers();
+          markersVisible = true;
+        }
+      });
     })
     .catch((error) => console.error(error));
 }
 
-//ADD MARKERS
+// ADD AND HIDE MARKERS
 function addMarkers(map, data) {
   console.log("adding markers");
   data.forEach((element) => {
@@ -119,56 +132,37 @@ function addMarkers(map, data) {
       map: map,
       title: `${address}: ${description}`,
     });
+    markers.push(marker);
   });
 }
 
-//ADD OVERLAY
+function showMarkers() {
+  setMapOnAll(map);
+}
+
+function hideMarkers() {
+  setMapOnAll(null);
+}
+
+function setMapOnAll(map) {
+  for (let i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+
+// ADD AND REMOVE OVERLAY
 function addOverlay(sourceData) {
   console.log("adding overlay");
-  const overlay = new DeckOverlay({
+  overlay = new DeckOverlay({
     layers: [
       new HexagonLayer({
         id: "hexagons",
         data: sourceData,
-        /* props from HexagonLayer class */
-
-        // colorAggregation: 'SUM',
-        // colorDomain: null,
-        // colorRange: [[255, 255, 178], [254, 217, 118], [254, 178, 76], [253, 141, 60], [240, 59, 32], [189, 0, 38]],
-        // colorScaleType: 'quantize',
-        // coverage: 1,
-        // elevationAggregation: 'SUM',
-        // elevationDomain: null,
-        // elevationLowerPercentile: 0,
-        // elevationRange: [0, 1000],
         elevationScale: 4,
-        // elevationScaleType: 'linear',
-        // elevationUpperPercentile: 100,
         extruded: true,
-        // getColorValue: null,
-        // getColorWeight: 1,
-        // getElevationValue: null,
-        // getElevationWeight: 1,
         getPosition: (d) => d.geometry.coordinates,
-        // hexagonAggregator: null,
-        // lowerPercentile: 0,
-        // material: true,
-        // onSetColorDomain: null,
-        // onSetElevationDomain: null,
         radius: 100,
-        // upperPercentile: 100,
-
-        /* props inherited from Layer class */
-
-        // autoHighlight: false,
-        // coordinateOrigin: [0, 0, 0],
-        // coordinateSystem: COORDINATE_SYSTEM.LNGLAT,
-        // highlightColor: [0, 0, 128, 128],
-        // modelMatrix: null,
-        // opacity: 1,
         pickable: true,
-        // visible: true,
-        // wrapLongitude: false,
       }),
     ],
     getTooltip: ({ object }) =>
@@ -176,9 +170,21 @@ function addOverlay(sourceData) {
         html: `<h2>Number of DAs: ${object.points.length}</h2>`,
       },
   });
-
-  overlay.setMap(map);
+  console.log(overlay);
 }
+
+function hideOverlay() {
+  console.log("hiding overlay");
+  overlay.setMap(null);
+  console.log(overlay)
+}
+
+function showOverlay() {
+  console.log("showing overlay");
+  overlay.setMap(map);
+  console.log(overlay)
+}
+
 
 // CREATE SCRIPT TAG AND CALL THE GOOGLE MAPS URL
 const GOOGLE_MAP_API_KEY = "AIzaSyBfRbEPrKSs6cniENiokCq4ZUqp39eRLEw";
@@ -192,4 +198,5 @@ script.addEventListener("load", function () {
   initMap(); // Call initMap once the API has finished loading
   zoomer = new GoogleMapSmoothZoom(map);
   handlePositionChange();
+  displayToggle();
 });

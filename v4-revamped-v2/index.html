@@ -21,8 +21,8 @@
           across Australia.
         </h3>
         <p>
-          A gauge of gentrification, or notice of nuisance – this tracker 
-          plots DAs in a 3D space to inform you of any recent changes to land use
+          A gauge of gentrification, or notice of nuisance – this tracker plots
+          DAs in a 3D space to inform you of any recent changes to land use
           around a given location.
         </p>
         <p>
@@ -47,8 +47,14 @@
           value="4000"
           step="200"
         />
+
         <input id="address-input" type="text" placeholder="Enter an address" />
         <button id="geolocate">...or geolocate me automatically</button>
+        <br><br><label for="btn-holder">Show individual DAs (hover over markers for additional information):</label>
+        <div class="btn-holder">
+          <div class="btn-circle"></div>
+          <input type="checkbox" class="checkbox" />
+        </div>
         <p>
           Click and drag to move around the map. Hold shift, click and drag to
           change perspective.

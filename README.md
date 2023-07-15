@@ -8,15 +8,14 @@ PlanningAlerts is attributed to the OpenAustralia Foundation. The PlanningAlerts
 Essentially, the app plots development applications on a map, clusters the results by density, and displays the results as 3D pillars.
 
 ## Showcase
-![DA Tracker (1)](https://github.com/eternalBackPain/DA-tracker/assets/97266283/55265a37-10b8-4099-a0b0-e505654e7ed0)
+
 
 ## TODO
-- include general legal advice on how development applications work at law and what the rights of an objector are
-- Add a form field to control any other variables that might be interesting to play with (e.g. radius, date of submission)
-- Filter development applications by submission date. This may include altering my loop on the fetch function to continue looping until fetch number n+1 has no development applications before a certain date (e.g. 1/3/6 months from today's date). At the minimum, show what the latest submission date was of the data called.
-- add a switch to go from deck.gl overlay to markers
+- fix toggle so that when adding a second address it doesnt break
+- add a loading icon so that when a large data call is made it doesnt confuse the user
+- add better tooltips to markers
 - Make other calls to PlanningAlerts API that might be of interest
-- Add styling to everything
+- Add nicer styling to everything (somebody pls help I hate this)
 
 ## App development history
 - v1: Tried making an express backend that recieved POST requests from the client. The issue here was that I was trying to use the @googlemaps/js-api-loader module to load the Maps API then pass it back to the client, but obv you cant load the map in the server so idk what the heck was happening.

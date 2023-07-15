@@ -7,7 +7,7 @@
 
 /* Style the main content */
 #app {
-  max-width:80%;
+  max-width: 80%;
   margin: 0 auto;
   margin-top: 40px;
   padding: 5%;
@@ -15,7 +15,7 @@
 }
 
 /* Style the header */
-header {
+#header {
   /* padding: 20px; */
   font-size: larger;
   display: flex;
@@ -23,7 +23,7 @@ header {
   justify-content: space-between;
 }
 
-.about-link a {
+#header .about-link a {
   color: #000000;
   text-decoration: none;
   font-weight: bold;
@@ -35,13 +35,55 @@ header {
   margin-bottom: 20px;
 }
 
-label[for="radius"] {
+#controls h2 {
+  color: #000000;
+  margin-bottom: 10px;
+}
+
+#step-1,
+#step-2,
+#step-3 {
+  margin-bottom: 20px;
+}
+
+#step-1 label,
+#step-2 label {
   display: block;
-  margin-top: 10px;
+  margin-bottom: 5px;
 }
 
 #radius-input {
   width: 100%;
+}
+
+#step-3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#step-3 #address-input {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+#step-3 #geolocate {
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#step-3 #geolocate:hover {
+  background-color: #555;
+}
+
+#controls p {
+  margin-top: 20px;
+  color: #000000;
 }
 
 .btn-holder {
@@ -49,7 +91,7 @@ label[for="radius"] {
   width: 50px;
   height: 26px;
   border-radius: 18px;
-  background-color: #F7D6A3;
+  background-color: #f7d6a3;
   display: flex;
   align-items: center;
   padding-left: 5px;
@@ -57,22 +99,22 @@ label[for="radius"] {
   cursor: pointer;
 
   .btn-circle {
-      background-color: #6B5E8A;
-      transform: translateX(0px);
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      transition: 300ms;
+    background-color: #6b5e8a;
+    transform: translateX(0px);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    transition: 300ms;
   }
 
   .active {
-      background-color: rgb(218, 114, 80);
-      transform: translateX(30px);
-      transition: 300ms;
+    background-color: rgb(218, 114, 80);
+    transform: translateX(30px);
+    transition: 300ms;
   }
 
   .checkbox {
-      display: none;
+    display: none;
   }
 }
 
@@ -104,6 +146,6 @@ label[for="radius"] {
 }
 
 #about {
-    margin-top: 40px;
-    line-height: 25px;
+  margin-top: 40px;
+  line-height: 25px;
 }

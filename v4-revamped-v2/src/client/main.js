@@ -78,12 +78,20 @@ radiusInput.addEventListener("input", function () {
 });
 
 let submissionDate = new Date();
-let defaultDate = submissionDate.setMonth(submissionDate.getMonth() - 3);
-defaultDate = new Date(defaultDate);
-const defaultDateFormatted = defaultDate.toISOString().split("T")[0];
-submissionDate = defaultDateFormatted;
+let defaultDate = new Date(submissionDate.setMonth(submissionDate.getMonth() - 3));
+let minDate = new Date(submissionDate);
+minDate.setMonth(minDate.getMonth() - 12);
+let maxDate = new Date();
+
+const defaultDateFormattedValue = defaultDate.toISOString().split("T")[0];
+const minDateFormattedValue = minDate.toISOString().split("T")[0];
+const maxDateFormattedValue = maxDate.toISOString().split("T")[0];
+
 const submissionDateBtn = document.getElementById("submission-date");
-submissionDateBtn.setAttribute("value", defaultDateFormatted);
+submissionDateBtn.setAttribute("value", defaultDateFormattedValue);
+submissionDateBtn.setAttribute("min", minDateFormattedValue);
+submissionDateBtn.setAttribute("max", maxDateFormattedValue);
+
 submissionDateBtn.addEventListener("input", function () {
   const dateValue = submissionDateBtn.value;
   submissionDate = dateValue;

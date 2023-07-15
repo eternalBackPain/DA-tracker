@@ -10,6 +10,7 @@ let markersVisible = false;
 let overlay;
 let zoomer;
 const btn = document.querySelector(".btn-holder");
+let data = [];
 
 //HANDLE POSITIONING
 
@@ -92,52 +93,53 @@ function initMap() {
 
 /// CALL THE PLANNINGALERTS API
 
-function fetchPlanningData(startingPos) {
-  console.log("fetching planning data");
+async function fetchPlanningData(startingPos) {
   const url = `/planning-data?lat=${startingPos.lat}&lng=${startingPos.lng}&radius=${radius}`;
 
-  fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-      addOverlay(data);
-      showOverlay();
-      addMarkers(null, data);
-      btn.addEventListener("click", () => {
-        console.log("button clicked");
-        if (markersVisible) {
-          hideMarkers();
-          showOverlay();
-          markersVisible = false;
-        } else {
-          hideOverlay();
-          showMarkers();
-          markersVisible = true;
-        }
-      });
-    })
-    .catch((error) => console.error(error));
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log(data);
+    addOverlay(data);
+    showOverlay();
+    addMarkers(null, data);
+
+    btn.addEventListener("click", () => {
+      console.log("button clicked");
+      if (markersVisible) {
+        hideMarkers();
+        addOverlay(data);
+        showOverlay();
+        markersVisible = false;
+      } else {
+        deleteOverlay();
+        showMarkers();
+        markersVisible = true;
+      }
+    });
+  } catch (error) {
+    console.error(error);
+  }
 }
 
-// ADD AND HIDE MARKERS
 function addMarkers(map, data) {
-  console.log("adding markers");
   data.forEach((element) => {
-    const lng = element.geometry.coordinates[0];
-    const lat = element.geometry.coordinates[1];
-    const address = element.properties.address;
-    const description = element.properties.description;
+    const { coordinates } = element.geometry;
+    const { address, description } = element.properties;
+
     const marker = new google.maps.Marker({
-      position: { lat: lat, lng: lng },
-      map: map,
+      position: { lat: coordinates[1], lng: coordinates[0] },
+      map,
       title: `${address}: ${description}`,
     });
+
     markers.push(marker);
   });
 }
 
 function showMarkers() {
   setMapOnAll(map);
+  map.setMapTypeId("satellite");
 }
 
 function hideMarkers() {
@@ -145,14 +147,10 @@ function hideMarkers() {
 }
 
 function setMapOnAll(map) {
-  for (let i = 0; i < markers.length; i++) {
-    markers[i].setMap(map);
-  }
+  markers.forEach((marker) => marker.setMap(map));
 }
 
-// ADD AND REMOVE OVERLAY
 function addOverlay(sourceData) {
-  console.log("adding overlay");
   overlay = new DeckOverlay({
     layers: [
       new HexagonLayer({
@@ -170,21 +168,16 @@ function addOverlay(sourceData) {
         html: `<h2>Number of DAs: ${object.points.length}</h2>`,
       },
   });
-  console.log(overlay);
 }
 
-function hideOverlay() {
-  console.log("hiding overlay");
-  overlay.setMap(null);
-  console.log(overlay)
+function deleteOverlay() {
+  overlay.finalize();
 }
 
 function showOverlay() {
-  console.log("showing overlay");
   overlay.setMap(map);
-  console.log(overlay)
+  map.setMapTypeId("roadmap");
 }
-
 
 // CREATE SCRIPT TAG AND CALL THE GOOGLE MAPS URL
 const GOOGLE_MAP_API_KEY = "AIzaSyBfRbEPrKSs6cniENiokCq4ZUqp39eRLEw";

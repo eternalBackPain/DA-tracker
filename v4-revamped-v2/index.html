@@ -35,21 +35,34 @@
 
       <div id="controls">
         <h2>Search</h2>
-        <label for="radius"
-          >Radius of search (min is 400m; max is 10km; default is 4km)</label
-        >
-        <input
-          type="range"
-          name="radius"
-          id="radius-input"
-          min="400"
-          max="10000"
-          value="4000"
-          step="200"
-        />
-
-        <input id="address-input" type="text" placeholder="Enter an address" />
-        <button id="geolocate">...or geolocate me automatically</button>
+        <div id="step-1">
+          <label for="radius"
+            >Radius of search (min is 400m; max is 10km; default is 4km)
+            <input
+              type="range"
+              name="radius"
+              id="radius-input"
+              min="400"
+              max="10000"
+              value="4000"
+              step="200"
+          /></label>
+        </div>
+        <div id="step-2">
+          <label for="submission-date"
+            >Include results up to which date (default is the past 3 months):
+            <input type="date" name="submission-date" id="submission-date" />
+          </label>
+        </div>
+        <div id="step-3">
+          <input
+            id="address-input"
+            name="address-input"
+            type="text"
+            placeholder="Enter an address"
+          />
+          <button id="geolocate">...or geolocate me automatically</button>
+        </div>
         <br /><br />
         <p>
           Click and drag to move around the map. Hold shift, click and drag to
@@ -57,7 +70,7 @@
         </p>
       </div>
       <div id="map"></div>
-      <br>
+      <br />
       <label for="btn-holder"
         >Show individual DAs (hover over markers for additional
         information):</label

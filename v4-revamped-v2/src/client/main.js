@@ -68,7 +68,7 @@ function handlePositionChange() {
   geolocateButton.addEventListener("click", getCurrentPosition);
 }
 
-// LOAD THE MAP
+// SET CONTROLS
 
 let radius = 4000;
 const radiusInput = document.getElementById("radius-input");
@@ -76,6 +76,22 @@ radiusInput.addEventListener("input", function () {
   const radiusValue = radiusInput.value;
   radius = radiusValue;
 });
+
+let submissionDate = new Date();
+let defaultDate = submissionDate.setMonth(submissionDate.getMonth() - 3);
+defaultDate = new Date(defaultDate);
+const defaultDateFormatted = defaultDate.toISOString().split("T")[0];
+submissionDate = defaultDateFormatted;
+const submissionDateBtn = document.getElementById("submission-date");
+submissionDateBtn.setAttribute("value", defaultDateFormatted);
+submissionDateBtn.addEventListener("input", function () {
+  const dateValue = submissionDateBtn.value;
+  submissionDate = dateValue;
+  console.log(submissionDate);
+});
+
+
+//LOAD THE MAP
 
 const GOOGLE_MAP_ID = "9ee2e6e794acfb79";
 function initMap() {
@@ -94,7 +110,7 @@ function initMap() {
 /// CALL THE PLANNINGALERTS API
 
 async function fetchPlanningData(startingPos) {
-  const url = `/planning-data?lat=${startingPos.lat}&lng=${startingPos.lng}&radius=${radius}`;
+  const url = `/planning-data?lat=${startingPos.lat}&lng=${startingPos.lng}&radius=${radius}&submissionDate=${submissionDate}`;
 
   try {
     const response = await fetch(url);
@@ -118,7 +134,7 @@ async function fetchPlanningData(startingPos) {
       }
     });
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 }
 

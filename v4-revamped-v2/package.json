@@ -15,6 +15,7 @@
     "@deck.gl/aggregation-layers": "^8.9.19",
     "@deck.gl/google-maps": "^8.9.19",
     "@deck.gl/layers": "^8.9.19",
+    "date-and-time": "^3.0.2",
     "express": "^4.18.2",
     "markdown-it": "^13.0.1",
     "vite-express": "*"

@@ -1,8 +1,9 @@
 import { GoogleMapsOverlay as DeckOverlay } from "@deck.gl/google-maps";
-import { GeoJsonLayer, ScatterplotLayer } from "@deck.gl/layers";
 import { HexagonLayer } from "@deck.gl/aggregation-layers";
 import GoogleMapSmoothZoom from "./Zoomer";
 import { displayToggle } from "./Toggle";
+// import Overlay from "./Overlay";
+// import Markers from "./Markers";
 
 let map;
 let markers = [];
@@ -70,6 +71,7 @@ function handlePositionChange() {
 
 // SET CONTROLS
 
+//radius
 let radius = 4000;
 const radiusInput = document.getElementById("radius-input");
 radiusInput.addEventListener("input", function () {
@@ -83,6 +85,7 @@ let minDate = new Date(submissionDate);
 minDate.setMonth(minDate.getMonth() - 12);
 let maxDate = new Date();
 
+//submission date
 const defaultDateFormattedValue = defaultDate.toISOString().split("T")[0];
 const minDateFormattedValue = minDate.toISOString().split("T")[0];
 const maxDateFormattedValue = maxDate.toISOString().split("T")[0];
@@ -104,14 +107,14 @@ submissionDateBtn.addEventListener("input", function () {
 const GOOGLE_MAP_ID = "9ee2e6e794acfb79";
 function initMap() {
   // Create new map
-  console.log("initializing map");
+  console.log("initialising map");
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 5,
     center: position,
-    tilt: 45, // Set the tilt angle (0 for flat, 45 for 45-degree tilt, etc.)
+    tilt: 45,
     mapId: GOOGLE_MAP_ID,
   });
-  console.log(`Map initialized`);
+  console.log(`Map initialised`);
   console.log(position);
 }
 
